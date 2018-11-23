@@ -71,3 +71,8 @@ INSERT INTO `jpa`.`mc_donalds` (`adres_fk`, `phone`, `code`, `city_fk`) VALUES (
 INSERT INTO `jpa`.`mc_donalds` (`adres_fk`, `phone`, `code`, `city_fk`) VALUES ('2', '45678912', '456', '3');
 INSERT INTO `jpa`.`mc_donalds` (`adres_fk`, `phone`, `code`, `city_fk`) VALUES ('4', '78912345', '789', '2');
 INSERT INTO `jpa`.`mc_donalds` (`adres_fk`, `phone`, `code`, `city_fk`) VALUES ('3', '32165498', '321', '4');
+
+INSERT INTO `jpa`.`emp_filiaal` (`mc_donalds_id`, `employee_id`) VALUES ('1', '1');
+INSERT INTO `jpa`.`emp_filiaal` (`mc_donalds_id`, `employee_id`) VALUES ('2', '3');
+INSERT INTO `jpa`.`emp_filiaal` (`mc_donalds_id`, `employee_id`) VALUES ('3', '4');
+INSERT INTO `jpa`.`emp_filiaal` (`mc_donalds_id`, `employee_id`) VALUES ('4', '2');
