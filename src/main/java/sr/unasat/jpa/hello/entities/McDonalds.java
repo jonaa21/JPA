@@ -1,6 +1,7 @@
 package sr.unasat.jpa.hello.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "MC_DONALDS")
@@ -14,8 +15,8 @@ public class McDonalds {
         @Column(name="id", nullable=false)
         private int id;
 
-        @OneToOne(fetch = FetchType.LAZY, mappedBy = "mcDonalds", cascade = CascadeType.ALL)
-        @PrimaryKeyJoinColumn
+        @OneToOne
+        @JoinColumn(name = "adres_id")
         private Adres adres;
 
         @Column(name="phone", nullable=false)
@@ -28,15 +29,17 @@ public class McDonalds {
         @JoinColumn(name="city_fk")     //FK to join on City table
         private City city;
 
-        public McDonalds(int id, Adres adres, String phone, String code, City city) {
-            this.id = id;
-            this.adres = adres;
-            this.phone = phone;
-            this.code = code;
-            this.city = city;
-        }
+        @ManyToMany(mappedBy = "mcDonalds")
+        private List<Employee> employee;
 
-        public int getId() {
+    public McDonalds(Adres adres, String phone, String code, City city) {
+        this.adres = adres;
+        this.phone = phone;
+        this.code = code;
+        this.city = city;
+    }
+
+    public int getId() {
             return id;
         }
 
@@ -76,14 +79,24 @@ public class McDonalds {
             this.city = city;
         }
 
-        @Override
-        public String toString(){
-            return "McDonalds{" +
-                    "id =" + id +
-                    ", adres = " + adres+
-                    ", phone = " + phone +
-                    ", code = " + code +
-                    ", " + city.toString() + "}";
-        }
+    public List<Employee> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(List<Employee> employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return "McDonalds{" +
+                "id=" + id +
+                ", adres=" + adres +
+                ", phone='" + phone + '\'' +
+                ", code='" + code + '\'' +
+                ", city=" + city +
+                ", employee=" + employee +
+                '}';
+    }
 }
 

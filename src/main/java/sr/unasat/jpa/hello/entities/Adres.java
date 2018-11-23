@@ -14,15 +14,14 @@ public class Adres {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToOne(mappedBy = "adres",fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @OneToOne(mappedBy = "adres", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private McDonalds mcDonalds;
-
     public Adres() {
     }
 
-    public Adres(String name, McDonalds mcDonalds) {
+    public Adres(int id,String name) {
+        this.id = id;
         this.name = name;
-        this.mcDonalds = mcDonalds;
     }
 
     public int getId() {
@@ -50,11 +49,11 @@ public class Adres {
     }
 
     @Override
-    public String toString(){
-        return "Adres {" +
-                "id = " + id+
-                "name = " + name +
-                "}";
-
+    public String toString() {
+        return "Adres{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", mcDonalds=" + mcDonalds +
+                '}';
     }
 }

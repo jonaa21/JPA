@@ -12,7 +12,8 @@ import static java.lang.System.setOut;
 public class App {
 
     public static void main(String[] args) {
-
+        JPAConfiguration.getEntityManager();
+        System.out.println();
         McDonaldsDAO mcDonaldsDAO = new McDonaldsDAO(JPAConfiguration.getEntityManager());
         out.println("Current table");
 

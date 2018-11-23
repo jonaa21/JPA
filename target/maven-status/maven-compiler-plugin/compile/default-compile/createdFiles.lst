@@ -1,0 +1,9 @@
+sr\unasat\jpa\hello\config\JPAConfiguration.class
+sr\unasat\jpa\hello\dao\CityDAO.class
+sr\unasat\jpa\hello\entities\Employee.class
+sr\unasat\jpa\hello\app\App.class
+sr\unasat\jpa\hello\entities\City.class
+sr\unasat\jpa\hello\dao\McDonaldsDAO.class
+sr\unasat\jpa\hello\entities\McDonalds.class
+sr\unasat\jpa\hello\dao\EmployeeDAO.class
+sr\unasat\jpa\hello\entities\Adres.class
