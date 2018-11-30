@@ -1,5 +1,6 @@
 package sr.unasat.jpa.hello.entities;
 
+
 import javax.persistence.*;
 
 @Entity

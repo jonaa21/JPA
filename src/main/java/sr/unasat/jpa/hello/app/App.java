@@ -12,14 +12,18 @@ import static java.lang.System.setOut;
 public class App {
 
     public static void main(String[] args) {
-        JPAConfiguration.getEntityManager();
-        System.out.println();
         McDonaldsDAO mcDonaldsDAO = new McDonaldsDAO(JPAConfiguration.getEntityManager());
-        out.println("Current table");
-
         List<McDonalds> mcDonaldsList = mcDonaldsDAO.selectAll();
-        for (McDonalds mc : mcDonaldsList) {
-            out.println(mc);
-        }
+        mcDonaldsList.stream().forEach(System.out::println);
+        JPAConfiguration.shutdown();
+
+        //TODO
+        //In adresDao -> insertAddressWithMcDonaldsList(Adres adres) met een lijst van McDonalds records
+        //CRUD mbt ManyToMany en OneToOne
+        //Scenario I: nieuwe emp met nieuwe filialen (cascade)
+        //Scenario II: nieuwe emp met lijst van bestaande mcD
+        //Scenario III: bestaande emp met lijst van nieuwe mcD
+        //Scenario IV: bestaande emp met bestaande mcD
+        //Scenario V: mixed van nieuwe/bestaande emp en nieuwe/bestaande mcD
     }
 }

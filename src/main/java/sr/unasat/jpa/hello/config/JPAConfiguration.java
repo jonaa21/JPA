@@ -15,9 +15,6 @@ public class JPAConfiguration {
     }
 
     public static EntityManager getEntityManager() {
-        System.out.println();
-        Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        System.out.println();
         return entityManager;
     }
 
