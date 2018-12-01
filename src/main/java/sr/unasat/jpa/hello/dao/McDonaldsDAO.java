@@ -62,22 +62,22 @@ public class McDonaldsDAO {
         entityManager.persist(mcDonalds);
         entityManager.getTransaction().commit();
     }
-//
-//    public int update(McDonalds mcDonalds) {
-//        entityManager.getTransaction().begin();
-//        String sql = "update McDonalds m set m.adres = :adres, m.phone = :phone," +
-//                "m.code = :code, m.city = :city, m.employee = :employee where m.id = :id";
-//        Query query = entityManager.createQuery(sql);
-//        query.setParameter("id", mcDonalds.getId());
-//        query.setParameter("adres", mcDonalds.getAdres());
-//        query.setParameter("phone", mcDonalds.getPhone());
-//        query.setParameter("code", mcDonalds.getCode());
-//        query.setParameter("city", mcDonalds.getCity());
-//        query.setParameter("employee", mcDonalds.getEmployee());
-//        int updated = query.executeUpdate();
-//        entityManager.getTransaction().commit();
-//        return updated;
-//    }
+
+    public int update(McDonalds mcDonalds) {
+        entityManager.getTransaction().begin();
+        String sql = "update McDonalds m set m.adres = :adres, m.phone = :phone," +
+                "m.code = :code, m.city = :city, m.employee = :employee where m.id = :id";
+        Query query = entityManager.createQuery(sql);
+        query.setParameter("id", mcDonalds.getId());
+        query.setParameter("adres", mcDonalds.getAdres());
+        query.setParameter("phone", mcDonalds.getPhone());
+        query.setParameter("code", mcDonalds.getCode());
+        query.setParameter("city", mcDonalds.getCity());
+        query.setParameter("employee", mcDonalds.getEmployee());
+        int updated = query.executeUpdate();
+        entityManager.getTransaction().commit();
+        return updated;
+    }
 
     public int delete(McDonalds mcDonalds) {
         entityManager.getTransaction().begin();

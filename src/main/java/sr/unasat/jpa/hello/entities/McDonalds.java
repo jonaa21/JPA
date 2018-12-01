@@ -29,8 +29,8 @@ public class McDonalds {
         @JoinColumn(name="city_fk")     //FK to join on City table
         private City city;
 
-//        @ManyToMany(mappedBy = "mcDonalds")
-//        private List<Employee> employee;
+        @ManyToMany(mappedBy = "mcDonalds")
+        private List<Employee> employee;
 
     public McDonalds(Adres adres, String phone, String code, City city) {
         this.adres = adres;
@@ -79,13 +79,13 @@ public class McDonalds {
             this.city = city;
         }
 
-//    public List<Employee> getEmployee() {
-//        return employee;
-//    }
-//
-//    public void setEmployee(List<Employee> employee) {
-//        this.employee = employee;
-//    }
+    public List<Employee> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(List<Employee> employee) {
+        this.employee = employee;
+    }
 
     @Override
     public String toString() {
@@ -95,7 +95,7 @@ public class McDonalds {
                 ", phone='" + phone + '\'' +
                 ", code='" + code + '\'' +
                 ", city=" + city +
-               // ", employee=" + employee +
+                ", employee=" + employee +
                 '}';
     }
 }
