@@ -55,6 +55,24 @@ public class City {
         this.description = description;
     }
 
+    public void addMcDonalds(McDonalds mcDonalds) {
+        if (mcDonalds.getCity() != this) {
+            mcDonalds.setCity(this);
+        }
+        if (!this.mcDonalds.contains(mcDonalds)) {
+            this.mcDonalds.add(mcDonalds);
+        }
+    }
+
+    public void removeMcDonalds(McDonalds mcDonalds) {
+        if (mcDonalds.getCity() == this) {
+            mcDonalds.setCity(null);
+        }
+        if (this.mcDonalds.contains(mcDonalds)) {
+            this.mcDonalds.remove(mcDonalds);
+        }
+    }
+
     @Override
     public String toString(){
 

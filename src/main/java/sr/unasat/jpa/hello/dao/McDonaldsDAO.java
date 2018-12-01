@@ -1,5 +1,6 @@
 package sr.unasat.jpa.hello.dao;
 
+import sr.unasat.jpa.hello.entities.Employee;
 import sr.unasat.jpa.hello.entities.McDonalds;
 
 import javax.persistence.EntityManager;
@@ -47,9 +48,8 @@ public class McDonaldsDAO {
     }
 
     public McDonalds selectMcDonalds(int id) {
-
         entityManager.getTransaction().begin();
-        String jpql = "select m from McDonalds m where m.id = :id";
+        String jpql = "select m from McDonalds m where m.code = :id";
         TypedQuery<McDonalds> query = entityManager.createQuery(jpql, McDonalds.class);
         query.setParameter("id", id);
         McDonalds mcDonalds = query.getSingleResult();
@@ -63,29 +63,20 @@ public class McDonaldsDAO {
         entityManager.getTransaction().commit();
     }
 
-    public int update(McDonalds mcDonalds) {
+    public void updateMcDonalds(McDonalds mcDonalds) {
         entityManager.getTransaction().begin();
-        String sql = "update McDonalds m set m.adres = :adres, m.phone = :phone," +
-                "m.code = :code, m.city = :city, m.employee = :employee where m.id = :id";
-        Query query = entityManager.createQuery(sql);
-        query.setParameter("id", mcDonalds.getId());
-        query.setParameter("adres", mcDonalds.getAdres());
-        query.setParameter("phone", mcDonalds.getPhone());
-        query.setParameter("code", mcDonalds.getCode());
-        query.setParameter("city", mcDonalds.getCity());
-        query.setParameter("employee", mcDonalds.getEmployee());
-        int updated = query.executeUpdate();
+        entityManager.merge(mcDonalds);
         entityManager.getTransaction().commit();
-        return updated;
     }
 
-    public int delete(McDonalds mcDonalds) {
+
+    public void deleteMcDonalds(McDonalds mcDonalds) {
         entityManager.getTransaction().begin();
-        String sql = "delete from McDonalds m where m.id = :id";
-        Query query = entityManager.createQuery(sql);
-        query.setParameter("id", mcDonalds.getId());
-        int deleted = query.executeUpdate();
+        while (mcDonalds.getEmployee().iterator().hasNext()) {
+            Employee employee = mcDonalds.getEmployee().iterator().next();
+            mcDonalds.removeEmployee(employee);
+        }
+        entityManager.remove(mcDonalds);
         entityManager.getTransaction().commit();
-        return deleted;
     }
 }

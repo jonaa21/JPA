@@ -1,6 +1,7 @@
 package sr.unasat.jpa.hello.dao;
 
 import sr.unasat.jpa.hello.entities.Employee;
+import sr.unasat.jpa.hello.entities.McDonalds;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -24,43 +25,51 @@ public class EmployeeDAO{
             return employeeList;
         }
 
-        public List<Employee> selectAllById(int id) {
 
-            entityManager.getTransaction().begin();
-            String jpql = "select e from Employee e where e.id = :id";
-            TypedQuery<Employee> query = entityManager.createQuery(jpql, Employee.class);
-            query.setParameter("id", id);
-            List<Employee> employeeList = query.getResultList();
-            entityManager.getTransaction().commit();
-            return employeeList;
-        }
+    public Employee selectEmployee(int id) {
+        entityManager.getTransaction().begin();
+        String jpql = "select e from Employee e where e.id = :id";
+        TypedQuery<Employee> query = entityManager.createQuery(jpql, Employee.class);
+        query.setParameter("id", id);
+        Employee employee = query.getSingleResult();
+        entityManager.getTransaction().commit();
+        return employee;
+    }
 
-        public void insert(Employee employee) {
-            entityManager.getTransaction().begin();
-            entityManager.persist(employee);
-            entityManager.getTransaction().commit();
-        }
+    public void insertEmployee(Employee employee) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(employee);
+        entityManager.getTransaction().commit();
+    }
 
-        public int update(Employee employee) {
-            entityManager.getTransaction().begin();
-            String sql = "update Employee e set e.firstname = :firstname, e.lastname = :lastname" +
-                    " where e.id = :id";
-            Query query = entityManager.createQuery(sql);
-            query.setParameter("id", employee.getId());
-            query.setParameter("firstname", employee.getFirstname());
-            query.setParameter("lastname", employee.getLastname());
-            int updated = query.executeUpdate();
-            entityManager.getTransaction().commit();
-            return updated;
+    public void insertEmployee(McDonalds mcDonalds) {
+        entityManager.getTransaction().begin();
+        for (Employee employee : mcDonalds.getEmployee()) {
+            if (employee.getId() == 0) {
+                entityManager.persist(employee);
+            }
         }
+        entityManager.getTransaction().commit();
+    }
 
-        public int delete(Employee employee) {
-            entityManager.getTransaction().begin();
-            String sql = "delete from Employee e where e.id = :id";
-            Query query = entityManager.createQuery(sql);
-            query.setParameter("id", employee.getId());
-            int deleted = query.executeUpdate();
-            entityManager.getTransaction().commit();
-            return deleted;
+    public void updateEmployee(Employee employee) {
+        entityManager.getTransaction().begin();
+        for (McDonalds mcDonalds : employee.getMcDonalds()) {
+            if (mcDonalds.getId() == 0) {
+                entityManager.persist(mcDonalds);
+            }
         }
+        entityManager.merge(employee);
+        entityManager.getTransaction().commit();
+    }
+
+    public void deleteEmployee(Employee employee) {
+        entityManager.getTransaction().begin();
+        while (employee.getMcDonalds().iterator().hasNext()) {
+            McDonalds mcDonalds = employee.getMcDonalds().iterator().next();
+            employee.removeMcDonalds(mcDonalds);
+        }
+        entityManager.remove(employee);
+        entityManager.getTransaction().commit();
+    }
 }

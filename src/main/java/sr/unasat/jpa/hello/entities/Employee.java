@@ -64,6 +64,23 @@ public class Employee {
         this.mcDonalds = mcDonalds;
     }
 
+    public void addMcDonalds(McDonalds mcDonalds) {
+        if (!mcDonalds.getEmployee().contains(this)) {
+            mcDonalds.getEmployee().add(this);
+        }
+        if (!this.mcDonalds.contains(mcDonalds)) {
+            this.mcDonalds.add(mcDonalds);
+        }
+    }
+
+    public void removeMcDonalds(McDonalds mcDonalds) {
+        if (mcDonalds.getEmployee().contains(this)) {
+            mcDonalds.getEmployee().remove(this);
+        }
+        if (this.mcDonalds.contains(mcDonalds)) {
+            this.mcDonalds.remove(mcDonalds);
+        }
+    }
     @Override
     public String toString() {
         return "Employee{" +
